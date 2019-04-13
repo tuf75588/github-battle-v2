@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import fetchPopularRepos from '../utils/API';
 
 function LanguagesNav({ selectedLanguage, updateLanguage }) {
   const languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
@@ -27,23 +28,47 @@ function LanguagesNav({ selectedLanguage, updateLanguage }) {
 
 class Popular extends React.Component {
   state = {
-    selectedLanguage: null,
+    selectedLanguage: 'All',
+    repos: null,
   };
+
+  componentDidMount() {
+    const { selectedLanguage } = this.state;
+    fetchPopularRepos(selectedLanguage).then((repos) =>
+      this.setState(() => ({
+        repos,
+      }))
+    );
+  }
 
   updateLanguage = (selectedLang) => {
     this.setState(() => ({
       selectedLanguage: selectedLang,
     }));
+    fetchPopularRepos(selectedLang).then((repos) => {
+      this.setState(() => ({
+        repos,
+      }));
+    });
   };
 
   render() {
-    const { selectedLanguage } = this.state;
+    const { selectedLanguage, repos } = this.state;
     return (
       <React.Fragment>
         <LanguagesNav
           selectedLanguage={selectedLanguage}
           updateLanguage={this.updateLanguage}
         />
+        {repos === null ? (
+          <h1>Loading...</h1>
+        ) : (
+          <ul className='repo-grid'>
+            {repos.map(({ name }) => (
+              <li>{name}</li>
+            ))}
+          </ul>
+        )}
       </React.Fragment>
     );
   }
