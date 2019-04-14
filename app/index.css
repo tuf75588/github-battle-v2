@@ -42,3 +42,37 @@ button {
   text-decoration: none;
   color: inherit;
 }
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+.space-around {
+  justify-content: space-around;
+}
+.repo {
+  width: 250px;
+  padding: 25px;
+  margin: 10px auto;
+}
+.bg-light {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 3px;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.header-lg {
+  font-weight: 300;
+  font-size: 35px;
+  margin: 20px;
+}
+.avatar {
+  height: 150px;
+  width: 150px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 3px;
+}
