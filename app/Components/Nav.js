@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Nav(props) {
+function Nav() {
   return (
     <nav className='nav'>
       <ul>

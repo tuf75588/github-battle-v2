@@ -3,7 +3,7 @@ import Popular from './Popular';
 import Nav from './Nav';
 import '../index.css';
 
-function App(props) {
+function App() {
   return (
     <div className='container'>
       <Nav />

@@ -50,9 +50,9 @@ button {
 .space-around {
   justify-content: space-around;
 }
-.repo {
+.card {
   width: 250px;
-  padding: 25px;
+  padding: 20px;
   margin: 10px auto;
 }
 .bg-light {
@@ -75,4 +75,20 @@ button {
   display: block;
   margin: 0 auto;
   border-radius: 3px;
+}
+.card-list {
+  margin: 20px 0;
+  font-size: 20px;
+}
+.card-list li {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+.card-list svg {
+  margin-right: 10px;
+}
+.card-list a {
+  font-weight: 500;
+  color: inherit;
 }
