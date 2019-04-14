@@ -1,5 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  FaUser,
+  FaStar,
+  FaCodeBranch,
+  FaExclamationTriangle,
+} from 'react-icons/fa';
+
 import fetchPopularRepos from '../utils/API';
 
 function LanguagesNav({ selectedLanguage, updateLanguage }) {
@@ -26,6 +33,51 @@ function LanguagesNav({ selectedLanguage, updateLanguage }) {
   );
 }
 
+function RepoGrid({ repos }) {
+  console.log(`REPOGRID`, repos);
+  return (
+    <ul className='grid space-around'>
+      {repos.map((repo, index) => {
+        const { name, open_issues, forks } = repo;
+        const { login, avatar_url } = repo.owner;
+        return (
+          <li key={repo.html_url} className='repo bg-light'>
+            <h4 className='header-lg center-text'>#{index + 1}</h4>
+            <img
+              src={avatar_url}
+              alt={`avatar for ${login}`}
+              className='avatar'
+            />
+            <h2 className='center-text'>
+              <a href={repo.html_url} className='link'>
+                {login}
+              </a>
+            </h2>
+            <ul className='card-list'>
+              <li>
+                <FaUser color='rgb(255, 191, 116)' size={22} />
+                <a href={`https://www.github.com/${login}`}>{login}</a>
+              </li>
+              <li>
+                <FaStar color='rgb(255, 215, 0)' size={22} />
+                {repo.stargazers_count.toLocaleString()} stars
+              </li>
+              <li>
+                <FaCodeBranch color='rgb(129, 195, 245)' size={22} />
+                {forks.toLocaleString()} forks
+              </li>
+              <li>
+                <FaExclamationTriangle color='rgb(241, 138, 147)' size={22} />
+                {open_issues.toLocaleString()} open
+              </li>
+            </ul>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
 class Popular extends React.Component {
   state = {
     selectedLanguage: 'All',
@@ -39,7 +91,7 @@ class Popular extends React.Component {
   }
 
   updateLanguage = (selectedLang) => {
-    const { repos } = this.state;
+    const { repos, error } = this.state;
     this.setState(() => ({
       selectedLanguage: selectedLang,
       error: null,
@@ -65,8 +117,8 @@ class Popular extends React.Component {
   };
 
   isLoading = () => {
-    const { repos, error, selectedLang } = this.state;
-    return !repos[selectedLang] && error === null;
+    const { repos, error, selectedLanguage } = this.state;
+    return !repos[selectedLanguage] && error === null;
   };
 
   render() {
@@ -77,10 +129,10 @@ class Popular extends React.Component {
           selectedLanguage={selectedLanguage}
           updateLanguage={this.updateLanguage}
         />
-        {this.isLoading() && <h2>Loading...</h2>}
+        {this.isLoading() && <p>LOADING</p>}
         {error && <p>{error}</p>}
         {repos[selectedLanguage] && (
-          <pre>{JSON.stringify(repos[selectedLanguage], null, 2)}</pre>
+          <RepoGrid repos={repos[selectedLanguage]} />
         )}
       </React.Fragment>
     );
