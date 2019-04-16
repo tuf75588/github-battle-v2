@@ -175,6 +175,10 @@ li {
   flex: 1;
   margin-left: 10px;
 }
+.player-inputs button {
+  flex: 1;
+  margin-left: 10px;
+}
 .btn {
   padding: 10px;
   text-transform: uppercase;
@@ -188,4 +192,26 @@ li {
   cursor: pointer;
   max-width: 200px;
   text-decoration: none;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+}
+.player {
+  flex: 1;
+  margin: 0 20px;
+  padding: 10px;
+}
+.player-label {
+  font-size: 20px;
+  font-weight: 300;
+  margin: 5px 0;
+}
+.dark-btn:disabled {
+  background: #f2f2f2;
+  color: #c7c7c7;
+}
+.dark-btn {
+  color: #e6e6e6;
+  background: #141414;
 }

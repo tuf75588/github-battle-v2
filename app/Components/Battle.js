@@ -31,14 +31,31 @@ function Instructions() {
 }
 
 class Battle extends React.Component {
+  state = {
+    playerOne: null,
+    playerTwo: null,
+  };
+
+  handleSubmit = (id, player) => {
+    this.setState(() => ({
+      [id]: player,
+    }));
+  };
+
   render() {
+    const { playerOne, playerTwo } = this.state;
     return (
       <div className='battle'>
         <Instructions />
         <div className='players-container'>
           <h1 className='center-text header-lg'>Players</h1>
           <div className='row space-around'>
-            <PlayerInput label='Player One' />
+            {playerOne === null && (
+              <PlayerInput onSubmit={this.handleSubmit} label='Player One' />
+            )}
+            {playerTwo === null && (
+              <PlayerInput onSubmit={this.handleSubmit} label='Player Two' />
+            )}
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Card from './Card';
-import fetchPopularRepos from '../utils/API';
+import { fetchPopularRepos } from '../utils/API';
 
 function LanguagesNav({ selectedLanguage, updateLanguage }) {
   const languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];

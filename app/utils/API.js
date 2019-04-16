@@ -1,4 +1,4 @@
-function fetchPopularRepos(language) {
+export function fetchPopularRepos(language) {
   const API_URL = window.encodeURI(
     `https://api.github.com/search/repositories?q=stars:>1+language:${language}&sort=stars&order=desc&type=Repositories`
   );
@@ -12,4 +12,6 @@ function fetchPopularRepos(language) {
     });
 }
 
-export default fetchPopularRepos;
+export function fetchUserInfo(player, id) {
+  console.log({ player, id });
+}
