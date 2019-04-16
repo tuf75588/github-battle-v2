@@ -17,7 +17,7 @@ function Card({
   stars,
 }) {
   return (
-    <li className='card bg-light'>
+    <div className='card bg-light'>
       <h4 className='header-lg center-text'>#{index + 1}</h4>
       <img src={avatar} alt={`avatar for ${login}`} className='avatar' />
       <h2 className='center-text'>
@@ -41,7 +41,7 @@ function Card({
           {openIssues.toLocaleString()} open
         </li>
       </ul>
-    </li>
+    </div>
   );
 }
 

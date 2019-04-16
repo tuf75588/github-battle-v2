@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 function Nav() {
   return (
-    <nav className='nav-link'>
-      <ul className='row-nav'>
+    <nav className='row space-between'>
+      <ul className='row nav'>
         <li>
           <NavLink activeClassName='active' exact to='/'>
             Home
