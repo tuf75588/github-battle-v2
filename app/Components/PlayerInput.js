@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { fetchUserInfo } from '../utils/API';
 
 class PlayerInput extends React.Component {
@@ -37,13 +38,14 @@ class PlayerInput extends React.Component {
             type='text'
             placeholder='Github username'
             autoComplete='off'
-            className='input light'
+            className='input-light'
             onChange={this.handleUserNameChange}
           />
           <button
             className='btn dark-btn'
             type='submit'
-            disabled={this.isDisabled()}
+            // eslint-disable-next-line react/destructuring-assignment
+            disabled={!this.state.username}
           >
             Submit
           </button>
@@ -52,5 +54,8 @@ class PlayerInput extends React.Component {
     );
   }
 }
-
+PlayerInput.propTypes = {
+  label: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
 export default PlayerInput;

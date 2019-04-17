@@ -3,6 +3,7 @@
 import React from 'react';
 import { FaUserFriends, FaFighterJet, FaTrophy } from 'react-icons/fa';
 import PlayerInput from './PlayerInput';
+import Preview from './Preview';
 
 function Instructions() {
   return (
@@ -51,12 +52,22 @@ class Battle extends React.Component {
           <h1 className='center-text header-lg'>Players</h1>
           <div className='row space-around'>
             {playerOne === null && (
-              <PlayerInput onSubmit={this.handleSubmit} label='Player One' />
+              <PlayerInput
+                onSubmit={(player) => this.handleSubmit('playerOne', player)}
+                label='Player One'
+              />
             )}
             {playerTwo === null && (
-              <PlayerInput onSubmit={this.handleSubmit} label='Player Two' />
+              <PlayerInput
+                onSubmit={(player) => this.handleSubmit('playerTwo', player)}
+                label='Player Two'
+              />
             )}
           </div>
+          <Preview
+            playerOne={this.state.playerOne}
+            playerTwo={this.state.playerTwo}
+          />
         </div>
       </div>
     );
