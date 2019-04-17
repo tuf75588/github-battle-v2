@@ -215,3 +215,10 @@ li {
   color: #e6e6e6;
   background: #141414;
 }
+.preview {
+  width: 400px;
+  height: 50px;
+  background: lightgrey;
+  margin: 0 30px;
+  padding: 20px;
+}
