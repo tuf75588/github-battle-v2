@@ -3,7 +3,7 @@
 import React from 'react';
 import { FaUserFriends, FaFighterJet, FaTrophy } from 'react-icons/fa';
 import PlayerInput from './PlayerInput';
-import Preview from './Preview';
+import PlayerPreview from './PlayerPreview';
 
 function Instructions() {
   return (
@@ -43,6 +43,12 @@ class Battle extends React.Component {
     }));
   };
 
+  handleReset = (playerId) => {
+    this.setState(() => ({
+      [playerId]: null,
+    }));
+  };
+
   render() {
     const { playerOne, playerTwo } = this.state;
     return (
@@ -51,23 +57,31 @@ class Battle extends React.Component {
         <div className='players-container'>
           <h1 className='center-text header-lg'>Players</h1>
           <div className='row space-around'>
-            {playerOne === null && (
+            {playerOne === null ? (
               <PlayerInput
                 onSubmit={(player) => this.handleSubmit('playerOne', player)}
                 label='Player One'
               />
+            ) : (
+              <PlayerPreview
+                username={playerOne}
+                label='Player One'
+                onReset={() => this.handleReset('playerOne')}
+              />
             )}
-            {playerTwo === null && (
+            {playerTwo === null ? (
               <PlayerInput
                 onSubmit={(player) => this.handleSubmit('playerTwo', player)}
                 label='Player Two'
               />
+            ) : (
+              <PlayerPreview
+                username={playerTwo}
+                label='Player Two'
+                onReset={() => this.handleReset('playerTwo')}
+              />
             )}
           </div>
-          <Preview
-            playerOne={this.state.playerOne}
-            playerTwo={this.state.playerTwo}
-          />
         </div>
       </div>
     );
