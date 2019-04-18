@@ -2,8 +2,9 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import { FaUserFriends, FaFighterJet, FaTrophy } from 'react-icons/fa';
+import { Link, Route } from 'react-router-dom';
 import PlayerInput from './PlayerInput';
-import Preview from './Preview';
+import PlayerPreview from './PlayerPreview';
 
 function Instructions() {
   return (
@@ -43,33 +44,61 @@ class Battle extends React.Component {
     }));
   };
 
+  handleReset = (playerId) => {
+    this.setState(() => ({
+      [playerId]: null,
+    }));
+  };
+
   render() {
     const { playerOne, playerTwo } = this.state;
+    const { url } = this.props.match;
+
+    console.log(this.props);
     return (
-      <div className='battle'>
+      <React.Fragment>
         <Instructions />
         <div className='players-container'>
           <h1 className='center-text header-lg'>Players</h1>
           <div className='row space-around'>
-            {playerOne === null && (
+            {playerOne === null ? (
               <PlayerInput
                 onSubmit={(player) => this.handleSubmit('playerOne', player)}
                 label='Player One'
               />
+            ) : (
+              <PlayerPreview
+                username={playerOne}
+                label='Player One'
+                onReset={() => this.handleReset('playerOne')}
+              />
             )}
-            {playerTwo === null && (
+            {playerTwo === null ? (
               <PlayerInput
                 onSubmit={(player) => this.handleSubmit('playerTwo', player)}
                 label='Player Two'
               />
+            ) : (
+              <PlayerPreview
+                username={playerTwo}
+                label='Player Two'
+                onReset={() => this.handleReset('playerTwo')}
+              />
             )}
           </div>
-          <Preview
-            playerOne={this.state.playerOne}
-            playerTwo={this.state.playerTwo}
-          />
+          {playerOne && playerTwo && (
+            <Link
+              className='btn btn-space dark-btn'
+              to={{
+                pathname: `${url}/results`,
+                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`,
+              }}
+            >
+              Battle
+            </Link>
+          )}
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
