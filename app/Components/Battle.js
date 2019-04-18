@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import { FaUserFriends, FaFighterJet, FaTrophy } from 'react-icons/fa';
+import { Link, Route } from 'react-router-dom';
 import PlayerInput from './PlayerInput';
 import PlayerPreview from './PlayerPreview';
 
@@ -51,8 +52,11 @@ class Battle extends React.Component {
 
   render() {
     const { playerOne, playerTwo } = this.state;
+    const { url } = this.props.match;
+
+    console.log(this.props);
     return (
-      <div className='battle'>
+      <React.Fragment>
         <Instructions />
         <div className='players-container'>
           <h1 className='center-text header-lg'>Players</h1>
@@ -82,8 +86,19 @@ class Battle extends React.Component {
               />
             )}
           </div>
+          {playerOne && playerTwo && (
+            <Link
+              className='btn btn-space dark-btn'
+              to={{
+                pathname: `${url}/results`,
+                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`,
+              }}
+            >
+              Battle
+            </Link>
+          )}
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
