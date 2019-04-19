@@ -5,6 +5,7 @@ import { FaUserFriends, FaFighterJet, FaTrophy } from 'react-icons/fa';
 import { Link, Route } from 'react-router-dom';
 import PlayerInput from './PlayerInput';
 import PlayerPreview from './PlayerPreview';
+import Results from './Results';
 
 function Instructions() {
   return (
@@ -36,6 +37,7 @@ class Battle extends React.Component {
   state = {
     playerOne: null,
     playerTwo: null,
+    battle: false,
   };
 
   handleSubmit = (id, player) => {
@@ -51,10 +53,11 @@ class Battle extends React.Component {
   };
 
   render() {
-    const { playerOne, playerTwo } = this.state;
-    const { url } = this.props.match;
+    const { playerOne, playerTwo, battle } = this.state;
 
-    console.log(this.props);
+    if (battle) {
+      return <Results playerOne={playerOne} playerTwo={playerTwo} />;
+    }
     return (
       <React.Fragment>
         <Instructions />
@@ -87,15 +90,13 @@ class Battle extends React.Component {
             )}
           </div>
           {playerOne && playerTwo && (
-            <Link
-              className='btn btn-space dark-btn'
-              to={{
-                pathname: `${url}/results`,
-                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`,
-              }}
+            <button
+              className='btn dark-btn btn-space'
+              type='submit'
+              onClick={() => this.setState({ battle: true })}
             >
               Battle
-            </Link>
+            </button>
           )}
         </div>
       </React.Fragment>
