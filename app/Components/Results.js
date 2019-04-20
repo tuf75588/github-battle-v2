@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { Redirect } from 'react-router-dom';
 import Card from './Card';
 import { battle } from '../utils/API';
 import ProfileList from './ProfileList';
@@ -38,26 +38,37 @@ class Results extends React.Component {
     if (loading === true) return <h1>LOADING....</h1>;
     if (error === true) return <p>{error}</p>;
     return (
-      <div className='grid space-around container-sm'>
-        <Card
-          header={winner.score === loser.score ? 'Tie' : 'Winner'}
-          subheader={`Score: ${winner.score.toLocaleString()}`}
-          avatar={winner.user.avatar_url}
-          href={winner.user.html_url}
-          name={winner.user.login}
+      <React.Fragment>
+        <div className='grid space-around container-sm'>
+          <Card
+            header={winner.score === loser.score ? 'Tie' : 'Winner'}
+            subheader={`Score: ${winner.score.toLocaleString()}`}
+            avatar={winner.user.avatar_url}
+            href={winner.user.html_url}
+            name={winner.user.login}
+          >
+            <ProfileList profile={winner.user} />
+          </Card>
+          <Card
+            header={winner.score === loser.score ? 'Tie' : 'Loser'}
+            subheader={`Score: ${loser.score.toLocaleString()}`}
+            avatar={loser.user.avatar_url}
+            href={loser.user.html_url}
+            name={loser.user.login}
+          >
+            <ProfileList profile={loser.user} />
+          </Card>
+        </div>
+
+        <button
+          className='btn dark-btn btn-space'
+          type='button'
+          // eslint-disable-next-line react/destructuring-assignment
+          onClick={this.props.onReset}
         >
-          <ProfileList profile={winner.user} />
-        </Card>
-        <Card
-          header={winner.score === loser.score ? 'Tie' : 'Loser'}
-          subheader={`Score: ${loser.score.toLocaleString()}`}
-          avatar={loser.user.avatar_url}
-          href={loser.user.html_url}
-          name={loser.user.login}
-        >
-          <ProfileList profile={loser.user} />
-        </Card>
-      </div>
+          RESET
+        </button>
+      </React.Fragment>
     );
   }
 }

@@ -52,11 +52,25 @@ class Battle extends React.Component {
     }));
   };
 
+  handleBattleReset = () => {
+    this.setState(() => ({
+      battle: false,
+      playerOne: null,
+      playerTwo: null,
+    }));
+  };
+
   render() {
     const { playerOne, playerTwo, battle } = this.state;
 
     if (battle) {
-      return <Results playerOne={playerOne} playerTwo={playerTwo} />;
+      return (
+        <Results
+          playerOne={playerOne}
+          playerTwo={playerTwo}
+          onReset={this.handleBattleReset}
+        />
+      );
     }
     return (
       <React.Fragment>
