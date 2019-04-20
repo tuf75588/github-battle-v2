@@ -23,6 +23,6 @@ Card.propTypes = {
   avatar: PropTypes.string.isRequired,
   href: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  children: PropTypes.func,
+  children: PropTypes.object,
 };
 export default Card;
