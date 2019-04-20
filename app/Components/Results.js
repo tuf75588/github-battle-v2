@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Card from './Card';
 import { battle } from '../utils/API';
 import ProfileList from './ProfileList';
+import Loading from './Loading';
 
 class Results extends React.Component {
   state = {
@@ -35,7 +36,7 @@ class Results extends React.Component {
 
   render() {
     const { winner, loser, error, loading } = this.state;
-    if (loading === true) return <h1>LOADING....</h1>;
+    if (loading === true) return <Loading text='Battling' />;
     if (error === true) return <p>{error}</p>;
     return (
       <React.Fragment>
