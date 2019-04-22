@@ -24,10 +24,14 @@ class App extends React.Component {
   };
 
   render() {
+    const { theme } = this.state;
     return (
       <ThemeProvider value={this.state}>
-        <div className='container'>
-          <Battle />
+        <div className={theme}>
+          <div className='container'>
+            <Nav />
+            <Battle />
+          </div>
         </div>
       </ThemeProvider>
     );
