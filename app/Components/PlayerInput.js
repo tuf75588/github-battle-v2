@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { fetchUserInfo } from '../utils/API';
+import { ThemeConsumer } from '../contexts/theme';
 
 class PlayerInput extends React.Component {
   state = {
@@ -29,28 +29,32 @@ class PlayerInput extends React.Component {
     const { label } = this.props;
 
     return (
-      <form className='column player' onSubmit={this.handleSubmit}>
-        <label htmlFor='user' id='playerOne' className='player-label'>
-          {label}
-        </label>
-        <div className='row player-inputs'>
-          <input
-            type='text'
-            placeholder='Github username'
-            autoComplete='off'
-            className='input-light'
-            onChange={this.handleUserNameChange}
-          />
-          <button
-            className='btn dark-btn'
-            type='submit'
-            // eslint-disable-next-line react/destructuring-assignment
-            disabled={!this.state.username}
-          >
-            Submit
-          </button>
-        </div>
-      </form>
+      <ThemeConsumer>
+        {({ theme }) => (
+          <form className='column player' onSubmit={this.handleSubmit}>
+            <label htmlFor='user' id='playerOne' className='player-label'>
+              {label}
+            </label>
+            <div className='row player-inputs'>
+              <input
+                type='text'
+                placeholder='Github username'
+                autoComplete='off'
+                className={`input-${theme}`}
+                onChange={this.handleUserNameChange}
+              />
+              <button
+                className={`btn ${theme === 'dark' ? 'light-btn' : 'dark-btn'}`}
+                type='submit'
+                // eslint-disable-next-line react/destructuring-assignment
+                disabled={!this.state.username}
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        )}
+      </ThemeConsumer>
     );
   }
 }
