@@ -20,17 +20,14 @@ class Hover extends React.Component {
 
   render() {
     const { hovering } = this.state;
-    const { children } = this.props;
+
     return (
       // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
       <div onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
-        {children(hovering)}
+        {this.props.children(hovering)}
       </div>
     );
   }
 }
-Hover.propTypes = {
-  children: PropTypes.object.isRequired,
-};
 
 export default Hover;
