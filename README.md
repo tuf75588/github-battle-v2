@@ -7,5 +7,3 @@ The goal of this branch is to obtain relevant github API data in order to proper
 ## todos
 
 - [ ] Get user star count.
-- [ ] Get number of repos player has.
-- [ ] Other profile data needed for UI display.
