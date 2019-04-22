@@ -31,6 +31,6 @@ class Hover extends React.Component {
 }
 
 Hover.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.object.isRequired,
 };
 export default Hover;
