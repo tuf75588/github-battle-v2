@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import queryString from 'query-string';
+import { Link } from 'react-router-dom';
 import Card from './Card';
 import { battle } from '../utils/API';
 import ProfileList from './ProfileList';
@@ -15,10 +17,10 @@ class Results extends React.Component {
   };
 
   componentDidMount() {
-    const { playerOne, playerTwo } = this.props;
+    const params = queryString.parse(this.props.location.search);
+    const { playerOne, playerTwo } = params;
     battle([playerOne, playerTwo])
       .then((results) => {
-        console.log(results);
         this.setState(() => ({
           winner: results[0],
           loser: results[1],
@@ -61,14 +63,9 @@ class Results extends React.Component {
           </Card>
         </div>
 
-        <button
-          className='btn dark-btn btn-space'
-          type='button'
-          // eslint-disable-next-line react/destructuring-assignment
-          onClick={this.props.onReset}
-        >
+        <Link to='/battle' className='btn dark-btn btn-space'>
           RESET
-        </button>
+        </Link>
       </React.Fragment>
     );
   }
