@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/mouse-events-have-key-events */
 import React from 'react';
 import PropTypes from 'prop-types';
+import Hover from './Hover';
 
 const styles = {
   container: {
@@ -24,41 +25,21 @@ const styles = {
   },
 };
 
-class Tooltip extends React.Component {
-  state = {
-    hover: false,
-  };
-
-  mouseOver = () => {
-    this.setState(() => ({
-      hovering: true,
-    }));
-  };
-
-  mouseOut = () => {
-    this.setState(() => ({
-      hovering: false,
-    }));
-  };
-
-  render() {
-    const { text, children } = this.props;
-    const { hovering } = this.state;
-    return (
-      <div
-        onMouseOver={this.mouseOver}
-        onMouseOut={this.mouseOut}
-        style={styles.container}
-      >
-        {hovering === true && <div style={styles.tooltip}>{text}</div>}
-        {children}
-      </div>
-    );
-  }
+function Tooltip({ text, children }) {
+  return (
+    <Hover>
+      {(hovering) => (
+        <div style={styles.container}>
+          {hovering === true && <div style={styles.tooltip}>{text}</div>}
+          {children}
+        </div>
+      )}
+    </Hover>
+  );
 }
-
 Tooltip.propTypes = {
   text: PropTypes.string.isRequired,
+  children: PropTypes.array,
 };
 
 export default Tooltip;

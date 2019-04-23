@@ -26,14 +26,18 @@ class App extends React.Component {
   render() {
     const { theme } = this.state;
     return (
-      <ThemeProvider value={this.state}>
-        <div className={theme}>
-          <div className='container'>
-            <Nav />
-            <Battle />
+      <Router>
+        <ThemeProvider value={this.state}>
+          <div className={theme}>
+            <div className='container'>
+              <Nav />
+              <Route path='/' exact component={Popular} />
+              <Route path='/battle' exact component={Battle} />
+              <Route path='/battle/results' component={Results} />
+            </div>
           </div>
-        </div>
-      </ThemeProvider>
+        </ThemeProvider>
+      </Router>
     );
   }
 }

@@ -163,6 +163,12 @@ li {
 .nav li {
   margin-right: 10px;
 }
+.nav-link {
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+}
 
 .players-container {
   margin: 100px 0;
