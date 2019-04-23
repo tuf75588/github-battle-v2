@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import { Link } from 'react-router-dom';
@@ -70,10 +69,5 @@ class Results extends React.Component {
     );
   }
 }
-
-Results.propTypes = {
-  playerOne: PropTypes.string.isRequired,
-  playerTwo: PropTypes.string.isRequired,
-};
 
 export default Results;

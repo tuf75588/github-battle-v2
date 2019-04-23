@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 import React from 'react';
 import {
   BrowserRouter as Router,
@@ -5,14 +6,16 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
-import Popular from './Popular';
+
 import { ThemeProvider } from '../contexts/theme';
-import Results from './Results';
+
 import Nav from './Nav';
 import '../index.css';
+import Loading from './Loading';
 
-import Battle from './Battle';
-
+const Popular = React.lazy(() => import('./Popular'));
+const Battle = React.lazy(() => import('./Battle'));
+const Results = React.lazy(() => import('./Results'));
 class App extends React.Component {
   state = {
     theme: 'light',
@@ -31,9 +34,18 @@ class App extends React.Component {
           <div className={theme}>
             <div className='container'>
               <Nav />
-              <Route path='/' exact component={Popular} />
-              <Route path='/battle' exact component={Battle} />
-              <Route path='/battle/results' component={Results} />
+              <React.Suspense fallback={<Loading />}>
+                <Switch>
+                  <Route path='/' exact component={Popular} />
+                  <Route path='/battle' exact component={Battle} />
+                  <Route path='/battle/results' component={Results} />
+                  <Route
+                    render={() => (
+                      <h1>Sorry, but you've taken a wrong turn!</h1>
+                    )}
+                  />
+                </Switch>
+              </React.Suspense>
             </div>
           </div>
         </ThemeProvider>
