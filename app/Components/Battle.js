@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import { FaUserFriends, FaFighterJet, FaTrophy } from 'react-icons/fa';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ThemeConsumer } from '../contexts/theme';
 import PlayerInput from './PlayerInput';
 import PlayerPreview from './PlayerPreview';
@@ -50,7 +50,6 @@ class Battle extends React.Component {
   state = {
     playerOne: null,
     playerTwo: null,
-    battle: false,
   };
 
   handleSubmit = (id, player) => {
@@ -67,24 +66,14 @@ class Battle extends React.Component {
 
   handleBattleReset = () => {
     this.setState(() => ({
-      battle: false,
       playerOne: null,
       playerTwo: null,
     }));
   };
 
   render() {
-    const { playerOne, playerTwo, battle } = this.state;
+    const { playerOne, playerTwo } = this.state;
 
-    if (battle) {
-      return (
-        <Results
-          playerOne={playerOne}
-          playerTwo={playerTwo}
-          onReset={this.handleBattleReset}
-        />
-      );
-    }
     return (
       <React.Fragment>
         <Instructions />
@@ -117,13 +106,15 @@ class Battle extends React.Component {
             )}
           </div>
           {playerOne && playerTwo && (
-            <button
+            <Link
+              to={{
+                pathname: `${this.props.match.url}/results`,
+                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`,
+              }}
               className='btn dark-btn btn-space'
-              type='submit'
-              onClick={() => this.setState({ battle: true })}
             >
               Battle
-            </button>
+            </Link>
           )}
         </div>
       </React.Fragment>
