@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
   entry: './app/index.js',
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   output: {
     filename: 'index_bundle.js',
     path: path.resolve(__dirname, 'dist'),
