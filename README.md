@@ -1,9 +1,3 @@
-# Results-API-Data
+# Github Battle
 
-The goal of this branch is to obtain relevant github API data in order to properly gather information used in determining winner for github battle web application.
-
----
-
-## todos
-
-- [ ] Get user star count.
+## React application from the wonderful React instructor Tyler, McGinnis.
