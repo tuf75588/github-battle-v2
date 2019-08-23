@@ -45,9 +45,9 @@ function calculateScore(user, stars) {
 
 function getUserData(user) {
   return Promise.all([getProfile(user), fetchRepos(user)]).then(
-    ([user, repos]) => ({
-      user,
-      score: calculateScore(user, repos),
+    ([profile, repos]) => ({
+      profile,
+      score: calculateScore(profile, repos),
     })
   );
 }

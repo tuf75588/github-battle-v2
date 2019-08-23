@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ThemeConsumer } from '../contexts/theme';
@@ -8,45 +7,39 @@ class PlayerInput extends React.Component {
     username: '',
   };
 
-  handleUserNameChange = (event) => {
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.onSubmit(this.state.username);
+  };
+
+  handleInputChange = (event) => {
     const { value } = event.target;
     this.setState(() => ({
       username: value,
     }));
   };
 
-  handleSubmit = (event) => {
-    const { username } = this.state;
-    const { onSubmit } = this.props;
-    event.preventDefault();
-    onSubmit(username);
-  };
-
-  // eslint-disable-next-line react/destructuring-assignment
-  isDisabled = () => this.state.username === '';
-
   render() {
-    const { label } = this.props;
-
     return (
       <ThemeConsumer>
         {({ theme }) => (
           <form className='column player' onSubmit={this.handleSubmit}>
-            <label htmlFor='user' id='playerOne' className='player-label'>
-              {label}
+            <label htmlFor='username' className='player-label'>
+              {this.props.label}
             </label>
             <div className='row player-inputs'>
               <input
                 type='text'
-                placeholder='Github username'
-                autoComplete='off'
+                id='username'
                 className={`input-${theme}`}
-                onChange={this.handleUserNameChange}
+                placeholder='github username'
+                value={this.state.username}
+                autoComplete='off'
+                onChange={this.handleInputChange}
               />
               <button
-                className={`btn ${theme === 'dark' ? 'light-btn' : 'dark-btn'}`}
                 type='submit'
-                // eslint-disable-next-line react/destructuring-assignment
+                className={`btn ${theme === 'dark' ? 'light-btn' : 'dark-btn'}`}
                 disabled={!this.state.username}
               >
                 Submit
@@ -58,8 +51,10 @@ class PlayerInput extends React.Component {
     );
   }
 }
+
 PlayerInput.propTypes = {
-  label: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
 };
+
 export default PlayerInput;
