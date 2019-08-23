@@ -8,7 +8,7 @@ function Nav() {
   };
   return (
     <ThemeConsumer>
-      {({ theme, toggleTheme }) => (
+      {({ theme, toggle }) => (
         <nav className='row space-between'>
           <ul className='row nav'>
             <li>
@@ -35,7 +35,7 @@ function Nav() {
           <button
             style={{ fontSize: 30 }}
             className='btn-clear'
-            onClick={toggleTheme}
+            onClick={toggle}
             type='button'
           >
             {theme === 'light' ? '🔦' : '💡'}
