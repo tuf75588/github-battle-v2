@@ -2,19 +2,19 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { ThemeConsumer } from '../contexts/theme';
 
-function Nav() {
-  const activeStyle = {
-    color: `rgb(187,46,31)`,
-  };
+const activeStyle = {
+  color: 'rgb(187,46,31)',
+};
+function Navbar() {
   return (
     <ThemeConsumer>
       {({ theme, toggle }) => (
         <nav className='row space-between'>
-          <ul className='row nav'>
+          <ul className='nav row'>
             <li>
               <NavLink
-                to='/'
                 exact
+                to='/'
                 activeStyle={activeStyle}
                 className='nav-link'
               >
@@ -24,7 +24,6 @@ function Nav() {
             <li>
               <NavLink
                 to='/battle'
-                activeClassName='active'
                 activeStyle={activeStyle}
                 className='nav-link'
               >
@@ -33,16 +32,16 @@ function Nav() {
             </li>
           </ul>
           <button
+            onClick={toggle}
             style={{ fontSize: 30 }}
             className='btn-clear'
-            onClick={toggle}
             type='button'
           >
-            {theme === 'light' ? '🔦' : '💡'}
+            {theme === 'light' ? '🔦' : '🌞'}
           </button>
         </nav>
       )}
     </ThemeConsumer>
   );
 }
-export default Nav;
+export default Navbar;

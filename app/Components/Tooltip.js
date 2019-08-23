@@ -1,18 +1,17 @@
-/* eslint-disable jsx-a11y/mouse-events-have-key-events */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Hover from './Hover';
 
 const styles = {
   container: {
-    display: 'flex',
     position: 'relative',
+    display: 'flex',
   },
   tooltip: {
     boxSizing: 'border-box',
     position: 'absolute',
     width: '160px',
-    height: '100%',
+    bottom: '100%',
     left: '50%',
     marginLeft: '-80px',
     borderRadius: '3px',
@@ -25,7 +24,7 @@ const styles = {
   },
 };
 
-function Tooltip({ text, children }) {
+export default function Tooltip({ text, children }) {
   return (
     <Hover>
       {(hovering) => (
@@ -37,9 +36,8 @@ function Tooltip({ text, children }) {
     </Hover>
   );
 }
+
 Tooltip.propTypes = {
   text: PropTypes.string.isRequired,
-  children: PropTypes.array,
+  hovering: PropTypes.bool.isRequired,
 };
-
-export default Tooltip;

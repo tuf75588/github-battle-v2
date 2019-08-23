@@ -1,31 +1,28 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/label-has-for */
-import React from 'react';
-import { FaUserFriends, FaFighterJet, FaTrophy } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import { ThemeConsumer } from '../contexts/theme';
-import PlayerInput from './PlayerInput';
-import PlayerPreview from './PlayerPreview';
-import Results from './Results';
-
-function Instructions() {
+import React from "react";
+import { FaUserFriends, FaFighterJet, FaTrophy } from "react-icons/fa";
+import PlayerInput from "./PlayerInput";
+import PlayerPreview from "./PlayerPreview";
+import Results from "./Results";
+import { ThemeConsumer } from "../contexts/theme";
+import { Link } from "react-router-dom";
+function Instructions(props) {
   return (
     <ThemeConsumer>
       {({ theme }) => (
         <div className='instructions-container'>
-          <div className='center-text header-lg'>Instructions</div>
+          <h1 className='header-lg center-text'>Instructions</h1>
           <ol className='container-sm grid center-text battle-instructions'>
             <li>
               <h3 className='header-sm'>Enter Two Github Users</h3>
               <FaUserFriends
                 className={`bg-${theme}`}
-                color='rgb(255, 191, 116)'
+                color='rgb(255,191,116)'
                 size={140}
               />
             </li>
             <li>
               <h3 className='header-sm'>Battle</h3>
-              <FaFighterJet
+              <FaUserFriends
                 className={`bg-${theme}`}
                 color='#727272'
                 size={140}
@@ -35,7 +32,7 @@ function Instructions() {
               <h3 className='header-sm'>See the winners</h3>
               <FaTrophy
                 className={`bg-${theme}`}
-                color='rgb(255, 215, 0)'
+                color='rgb(255,215,0)'
                 size={140}
               />
             </li>
@@ -49,30 +46,25 @@ function Instructions() {
 class Battle extends React.Component {
   state = {
     playerOne: null,
-    playerTwo: null,
+    playerTwo: null
   };
-
-  handleSubmit = (id, player) => {
+  handleSubmit = (player, id) => {
     this.setState(() => ({
-      [id]: player,
+      [player]: id
     }));
   };
-
-  handleReset = (playerId) => {
+  handleReset = (id) => {
     this.setState(() => ({
-      [playerId]: null,
-    }));
-  };
-
-  handleBattleReset = () => {
-    this.setState(() => ({
-      playerOne: null,
-      playerTwo: null,
+      [id]: null
     }));
   };
 
   render() {
-    const { playerOne, playerTwo } = this.state;
+    const { playerOne, playerTwo, battle } = this.state;
+    const route = {
+      pathname: `/battle/results`,
+      search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`
+    };
 
     return (
       <React.Fragment>
@@ -82,36 +74,35 @@ class Battle extends React.Component {
           <div className='row space-around'>
             {playerOne === null ? (
               <PlayerInput
-                onSubmit={(player) => this.handleSubmit('playerOne', player)}
                 label='Player One'
+                onSubmit={(player) => this.handleSubmit("playerOne", player)}
               />
             ) : (
-              <PlayerPreview
-                username={playerOne}
-                label='Player One'
-                onReset={() => this.handleReset('playerOne')}
-              />
-            )}
+                <PlayerPreview
+                  username={this.state.playerOne}
+                  label='Player One'
+                  onReset={() => this.handleReset("playerOne")}
+                />
+              )}
             {playerTwo === null ? (
               <PlayerInput
-                onSubmit={(player) => this.handleSubmit('playerTwo', player)}
                 label='Player Two'
+                onSubmit={(player) => this.handleSubmit("playerTwo", player)}
               />
             ) : (
-              <PlayerPreview
-                username={playerTwo}
-                label='Player Two'
-                onReset={() => this.handleReset('playerTwo')}
-              />
-            )}
+                <PlayerPreview
+                  username={this.state.playerTwo}
+                  label='Player Two'
+                  onReset={() => this.handleReset("playerTwo")}
+                />
+              )}
           </div>
+          <hr />
           {playerOne && playerTwo && (
             <Link
-              to={{
-                pathname: `${this.props.match.url}/results`,
-                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`,
-              }}
+              to={route}
               className='btn dark-btn btn-space'
+              onClick={() => this.setState({ battle: true })}
             >
               Battle
             </Link>
