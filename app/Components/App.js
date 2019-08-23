@@ -7,7 +7,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-import { ThemeProvider } from '../contexts/theme';
+import { ThemeContext } from '../contexts/theme';
 
 import Nav from './Nav';
 import '../index.css';
@@ -32,7 +32,7 @@ function App() {
 
   return (
     <Router>
-      <ThemeProvider value={value}>
+      <ThemeContext.Provider value={value}>
         <div className={theme}>
           <div className='container'>
             <Nav />
@@ -48,7 +48,7 @@ function App() {
             </React.Suspense>
           </div>
         </div>
-      </ThemeProvider>
+      </ThemeContext.Provider>
     </Router>
   );
 }

@@ -30,7 +30,7 @@ function LanguagesNav({ selected, onUpdateLanguage }) {
 
 function ReposGrid({ repos }) {
   // const { forks, owner } = repos;
-  console.log(repos);
+
   return (
     <ul className='grid space-around'>
       {repos.map((repo, index) => {
