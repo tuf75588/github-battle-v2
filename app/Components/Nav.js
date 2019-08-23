@@ -1,10 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { ThemeContext } from '../contexts/theme';
 
 const activeStyle = {
   color: 'rgb(187,46,31)',
 };
 function Navbar() {
+  const { theme, toggle } = React.useContext(ThemeContext);
   return (
     <nav className='row space-between'>
       <ul className='nav row'>
@@ -19,8 +21,13 @@ function Navbar() {
           </NavLink>
         </li>
       </ul>
-      <button style={{ fontSize: 30 }} className='btn-clear' type='button'>
-        {/* {theme === 'light' ? '🔦' : '🌞'} */}
+      <button
+        style={{ fontSize: 30 }}
+        className='btn-clear'
+        type='button'
+        onClick={toggle}
+      >
+        {theme === 'light' ? '🔦' : '🌞'}
       </button>
     </nav>
   );

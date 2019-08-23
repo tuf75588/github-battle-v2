@@ -3,7 +3,7 @@ import { FaUserFriends, FaFighterJet, FaTrophy, FaUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import PlayerInput from './PlayerInput';
 import PlayerPreview from './PlayerPreview';
-import Results from './Results';
+
 import { ThemeContext } from '../contexts/theme';
 
 function Instructions() {

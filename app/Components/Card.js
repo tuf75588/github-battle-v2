@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ThemeContext } from '../contexts/theme';
 
-export default function Card({
+function Card({
   header,
   subheader,
   avatar,
@@ -10,8 +11,9 @@ export default function Card({
   // eslint-disable-next-line react/prop-types
   children,
 }) {
+  const { theme } = React.useContext(ThemeContext);
   return (
-    <div className='card bg'>
+    <div className={`card bg-${theme}`}>
       <h4 className='header-lg center-text'>{header}</h4>
       <img className='avatar' src={avatar} alt={`Avatar for ${name}`} />
       {subheader && <h4 className='center-text'>{subheader}</h4>}
@@ -32,3 +34,4 @@ Card.propTypes = {
   href: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
 };
+export default Card;
