@@ -1,12 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { ThemeContext } from '../contexts/theme';
+import { useHover } from './Hover';
 
 const activeStyle = {
   color: 'rgb(187,46,31)',
 };
 function Navbar() {
   const { theme, toggle } = React.useContext(ThemeContext);
+  const [hovering, attrs] = useHover();
+  console.log(hovering);
   return (
     <nav className='row space-between'>
       <ul className='nav row'>
