@@ -31,7 +31,6 @@ function LanguagesNav({ selected, onUpdateLanguage }) {
 
 function ReposGrid({ repos }) {
   // const { forks, owner } = repos;
-
   return (
     <ul className='grid space-around'>
       {repos.map((repo, index) => {
@@ -87,65 +86,49 @@ ReposGrid.propTypes = {
   repos: PropTypes.array.isRequired,
 };
 
-class Popular extends React.Component {
-  state = {
-    selectedLanguage: 'All',
-    repos: {},
-    error: null,
-  };
-
-  componentDidMount() {
-    this.updateLanguage(this.state.selectedLanguage);
+function Popular() {
+  const [selectedLanguage, updateSelectedLanguage] = React.useState('All');
+  const [repos, setRepos] = React.useState({});
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
+  function updateLanguage(selectedLang) {
+    updateSelectedLanguage(selectedLang);
   }
-
-  updateLanguage = (selectedLanguage) => {
-    // goal will be to cache repos if they are re-selected on the nav bar.
-    this.setState(() => ({
-      error: null,
-      selectedLanguage,
-    }));
-    // if the selected language is not a property on our repos object.
-    if (!this.state.repos[selectedLanguage]) {
+  React.useEffect(() => {
+    setLoading(true);
+    updateLanguage(selectedLanguage);
+    if (!repos[selectedLanguage]) {
       fetchPopularRepos(selectedLanguage)
         .then((data) => {
-          this.setState(({ repos }) => ({
-            repos: {
-              ...repos,
-              [selectedLanguage]: data,
-            },
+          setRepos((repos) => ({
+            ...repos,
+            [selectedLanguage]: data,
           }));
+          setLoading(false);
+          setError(false);
         })
-        .catch((error) => {
-          console.warn('there was an error in fetching the repos');
-          this.setState({ error });
+        .catch(({ message }) => {
+          setError(message);
         });
     }
-  };
-
-  isLoading = () => {
-    const { repos, selectedLanguage, error } = this.state;
-    return !repos[selectedLanguage] && error === null;
-  };
-
-  render() {
-    const { repos, selectedLanguage } = this.state;
-
-    return (
-      <React.Fragment>
-        <LanguagesNav
-          selected={selectedLanguage}
-          onUpdateLanguage={this.updateLanguage}
-        />
-        {this.isLoading() && <Loading text='Fetching Repos' />}
-        {this.state.error && (
-          <p className='error center-text'>{this.state.error}</p>
-        )}
-        {repos[selectedLanguage] && (
-          <ReposGrid repos={repos[selectedLanguage]} />
-        )}
-      </React.Fragment>
-    );
+  }, [repos, selectedLanguage]);
+  React.useCallback(() => {
+    updateLanguage(selectedLanguage);
+  }, [selectedLanguage]);
+  if (loading) {
+    return <Loading text='Fetching Repos' />;
   }
+  return (
+    <React.Fragment>
+      <LanguagesNav
+        onUpdateLanguage={updateLanguage}
+        selected={selectedLanguage}
+      />
+
+      {repos[selectedLanguage] && <ReposGrid repos={repos[selectedLanguage]} />}
+      <p>{error && error}</p>
+    </React.Fragment>
+  );
 }
 
 LanguagesNav.propTypes = {

@@ -8,8 +8,7 @@ const activeStyle = {
 };
 function Navbar() {
   const { theme, toggle } = React.useContext(ThemeContext);
-  const [hovering, attrs] = useHover();
-  console.log(hovering);
+
   return (
     <nav className='row space-between'>
       <ul className='nav row'>
