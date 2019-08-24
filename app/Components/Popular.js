@@ -16,6 +16,7 @@ function LanguagesNav({ selected, onUpdateLanguage }) {
       {languages.map((lang, indx) => (
         <li key={lang}>
           <button
+            type='button'
             className='btn-clear nav-link'
             onClick={() => onUpdateLanguage(lang)}
             style={lang === selected ? { color: 'rgb(187,46,31)' } : null}
@@ -128,6 +129,7 @@ class Popular extends React.Component {
 
   render() {
     const { repos, selectedLanguage } = this.state;
+
     return (
       <React.Fragment>
         <LanguagesNav
