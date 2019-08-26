@@ -269,3 +269,7 @@ li {
   background: #292929;
   color: #4a4a4a;
 }
+
+.nav-link {
+  cursor: pointer;
+}
