@@ -17,7 +17,11 @@ function PlayerPreview({ username, onReset, label }) {
             {username}
           </a>
         </div>
-        <button className='btn-clear flex-center' onClick={onReset}>
+        <button
+          className='btn-clear flex-center'
+          onClick={onReset}
+          type='button'
+        >
           <FaTimesCircle size={26} color='rgb(194,57,42)' />
         </button>
       </div>

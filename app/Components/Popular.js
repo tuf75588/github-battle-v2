@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -6,14 +7,14 @@ import {
   FaCodeBranch,
   FaExclamationTriangle,
 } from 'react-icons/fa';
-import { fetchPopularRepos } from '../utils/api';
+import { fetchPopularRepos } from '../utils/API';
 import Loading from './Loading';
 
 function LanguagesNav({ selected, onUpdateLanguage }) {
   const languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
   return (
     <ul className='flex-center'>
-      {languages.map((lang, indx) => (
+      {languages.map((lang) => (
         <li key={lang}>
           <button
             type='button'
@@ -35,7 +36,6 @@ function ReposGrid({ repos }) {
     <ul className='grid space-around'>
       {repos.map((repo, index) => {
         const {
-          name,
           open_issues,
           html_url,
           forks,
@@ -95,11 +95,12 @@ function Popular() {
     updateSelectedLanguage(selectedLang);
   }
   React.useEffect(() => {
-    setLoading(true);
     updateLanguage(selectedLanguage);
     if (!repos[selectedLanguage]) {
+      setLoading(true);
       fetchPopularRepos(selectedLanguage)
         .then((data) => {
+          // eslint-disable-next-line no-shadow
           setRepos((repos) => ({
             ...repos,
             [selectedLanguage]: data,
@@ -115,16 +116,14 @@ function Popular() {
   React.useCallback(() => {
     updateLanguage(selectedLanguage);
   }, [selectedLanguage]);
-  if (loading) {
-    return <Loading text='Fetching Repos' />;
-  }
+
   return (
     <React.Fragment>
       <LanguagesNav
         onUpdateLanguage={updateLanguage}
         selected={selectedLanguage}
       />
-
+      {loading && <Loading text='Fetching Repos' />}
       {repos[selectedLanguage] && <ReposGrid repos={repos[selectedLanguage]} />}
       <p>{error && error}</p>
     </React.Fragment>

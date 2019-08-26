@@ -1,11 +1,7 @@
+/* eslint-disable no-shadow */
 /* eslint-disable react/no-unused-state */
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { ThemeContext } from '../contexts/theme';
 
